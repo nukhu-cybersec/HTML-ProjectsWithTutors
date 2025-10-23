@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Client-Side and Server-Side Scripts</title>
+    <style>
+        :root {
+            --bg-gradient-1: #0a192f;
+            --bg-gradient-2: #112240;
+            --bg-hover-1: #1a2332;
+            --bg-hover-2: #172a45;
+            --text-primary: #64ffda;
+            --text-secondary: #ccd6f6;
+            --card-bg: rgba(17, 34, 64, 0.95);
+            --button-gradient-1: #00d9ff;
+            --button-gradient-2: #00a8cc;
+            --link-color: #64ffda;
+            --shadow-color: rgba(100, 255, 218, 0.3);
+            --border-color: #00d9ff;
+            --accent-cyan: #00d9ff;
+            --accent-teal: #64ffda;
+        }
+        
+        body.dark-mode {
+            --bg-gradient-1: #000000;
+            --bg-gradient-2: #0d1117;
+            --bg-hover-1: #161b22;
+            --bg-hover-2: #1f2937;
+            --text-primary: #00ff88;
+            --text-secondary: #c9d1d9;
+            --card-bg: rgba(22, 27, 34, 0.95);
+            --button-gradient-1: #ff006e;
+            --button-gradient-2: #8338ec;
+            --link-color: #ff006e;
+            --shadow-color: rgba(255, 0, 110, 0.4);
+            --border-color: #ff006e;
+            --accent-cyan: #00ff88;
+            --accent-teal: #00e5ff;
+        }
+        
+        * {
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
+        
+        .center-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--button-gradient-1) 0%, var(--button-gradient-2) 100%);
+            color: white;
+            border: 2px solid var(--accent-cyan);
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--shadow-color);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--shadow-color);
+            border-color: var(--accent-teal);
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        
+        /* Animated Stars for Dark Mode */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+            pointer-events: none;
+            box-shadow: 0 0 5px var(--accent-cyan);
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        /* Animated Particles for Light Mode */
+        .particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            25% { transform: translateY(-30px) translateX(20px); opacity: 0.8; }
+            50% { transform: translateY(-60px) translateX(-10px); opacity: 1; }
+            75% { transform: translateY(-30px) translateX(-20px); opacity: 0.8; }
+        }
+        
+        /* Interactive CSS Styles */
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            transition: background 0.5s ease;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--text-secondary);
+        }
+        
+        body:hover {
+            background: linear-gradient(135deg, var(--bg-hover-1) 0%, var(--bg-hover-2) 100%);
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px var(--shadow-color);
+            transition: transform 0.3s ease, color 0.5s ease;
+            animation: slideInDown 1s ease;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+            border-bottom: 3px solid var(--accent-cyan);
+            padding-bottom: 20px;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        h1:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 30px var(--shadow-color);
+        }
+        
+        h2 {
+            color: var(--text-primary);
+            transition: color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            animation: fadeIn 1s ease;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            border-left: 4px solid var(--accent-cyan);
+            padding-left: 15px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h2:hover {
+            color: var(--accent-cyan);
+            transform: translateX(10px);
+            text-shadow: 0 0 15px var(--shadow-color);
+        }
+        
+        li {
+            transition: transform 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 10px 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        li:hover {
+            transform: translateX(10px);
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+        
+        li:before {
+            content: "▸";
+            color: var(--accent-cyan);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid var(--link-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        
+        a:hover {
+            background-color: var(--link-color);
+            color: #0a192f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px var(--shadow-color);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--button-gradient-1) 0%, var(--button-gradient-2) 100%);
+            color: white;
+            border: 2px solid var(--accent-cyan);
+            padding: 12px 28px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--shadow-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 25px var(--shadow-color);
+            background: linear-gradient(135deg, var(--button-gradient-2) 0%, var(--button-gradient-1) 100%);
+            border-color: var(--accent-teal);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 15px var(--shadow-color);
+        }
+        
+        input {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
+        }
+        
+        input:focus {
+            border-color: var(--link-color);
+            box-shadow: 0 0 20px var(--shadow-color);
+            transform: scale(1.02);
+        }
+        
+        input:hover {
+            border-color: var(--link-color);
+        }
+        
+        input::placeholder {
+            color: rgba(204, 214, 246, 0.5);
+        }
+        
+        #out, #output {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            min-height: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--shadow-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            font-family: 'Courier New', monospace;
+            font-size: 1.05em;
+        }
+        
+        #out:hover, #output:hover {
+            box-shadow: 0 0 25px var(--shadow-color);
+            transform: scale(1.01);
+            border-color: var(--accent-cyan);
+        }
+        
+        ul {
+            background-color: var(--card-bg);
+            padding: 25px 30px;
+            border-radius: 8px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--shadow-color);
+            animation: slideInUp 0.8s ease;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            list-style: none;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        ul:hover {
+            box-shadow: 0 0 30px var(--shadow-color);
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+        
+        img {
+            transition: all 0.5s ease;
+            border-radius: 8px;
+            box-shadow: 0 0 30px var(--shadow-color);
+            animation: zoomIn 1s ease;
+            border: 2px solid var(--accent-cyan);
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 50px var(--shadow-color);
+        }
+        
+        pre {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--border-color);
+            padding: 20px;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        pre:hover {
+            border-left-width: 8px;
+            padding-left: 25px;
+            box-shadow: 0 0 20px var(--shadow-color);
+        }
+        
+        p {
+            color: var(--text-secondary);
+            transition: color 0.5s ease;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        /* Pulse animation for interactive elements */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Cyber grid background effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Theme</button>
+    
+    <!-- Animated Background Elements Container -->
+    <div id="bg-elements"></div>
+    
+    <h1>Andy's Lesson 23/10/25 - XSS Vulnerability & Cookie Demo within Site</h1>
+    
+    <!-- Centered Image Section -->
+    <div class="image-container">
+        <img src="Client-side-rendering-diagram.png" alt="Image of Client-Side Scripting/Rendering" class="center-image" width="600">
+    </div>
+    
+    <p>
+<li><h2>JSON</h2></li>
+<ul type="">
+    <li>JSON is a lightweight data-interchange format.</li>
+    <li>It is text-based, human-readable, and language-independent.</li>
+    <li>Commonly used for data exchange between a server and a web application.</li>
+</ul>
+<li><h2>jQuery</h2></li>
+<ul>
+    <li>jQuery is a JavaScript library designed to simplify HTML DOM manipulation, event handling, CSS animations, and AJAX operations. It essentially wraps complex JavaScript code into simpler, more readable methods.</li>
+</ul>
+<li><h2>AJAX</h2></li>
+<ul>
+    <li>AJAX is a technique that allows web pages to communicate with servers asynchronously—meaning data can be sent and received without reloading the entire page. Despite its name including "XML," AJAX commonly works with JSON, HTML, and plain text.</li>
+</ul>
+ <h2>Cross site Vulnerability Example</h2>
+ 
+    <input id="q" placeholder="Type some text" />
+    <button id="go">Show</button>
+    <div id="out"></div>
+ 
+    <script>
+      document.getElementById('go').onclick = function () {
+        const text = document.getElementById('q').value;
+        document.getElementById('out').innerHTML = "You typed: " + text;
+      };
+    </script>
+<br></br>
+<h2>Cookie Handling Demo</h2>
+<p>Use the buttons below to create and view cookies using JavaScript.</p>
+<button onclick="setNormalCookie()">Set Normal Cookie</button>
+<button onclick="showCookies()">Show Cookies</button>
+<pre id="output"></pre>
+<script>
+function setNormalCookie() {
+    // Gets the text from the XSS input box and saves it as a cookie
+    const text = document.getElementById('q').value;
+    if (text) {
+        document.cookie = "userInput=" + encodeURIComponent(text) + "; path=/";
+        document.getElementById("output").textContent = 
+          "Cookie created with value: " + text;
+    } else {
+        document.getElementById("output").textContent = 
+          "Please type something in the text box above first!";
+    }
+  }
+function showCookies() {
+    // Shows all cookies visible in JavaScript
+    const cookies = document.cookie;
+    if (cookies && cookies.trim() !== '') {
+        document.getElementById("output").textContent =
+          "The following cookies are visible in JavaScript:\n" + cookies;
+    } else {
+        document.getElementById("output").textContent =
+          "No cookies found. Create one first!";
+    }
+  }
+</script>
+
+<script>
+// Theme Toggle Functionality
+function toggleTheme() {
+    const body = document.body;
+    const bgElements = document.getElementById('bg-elements');
+    
+    body.classList.toggle('dark-mode');
+    
+    // Save preference
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        createStars();
+    } else {
+        localStorage.setItem('theme', 'light');
+        createParticles();
+    }
+}
+
+// Create animated stars for dark mode
+function createStars() {
+    const bgElements = document.getElementById('bg-elements');
+    bgElements.innerHTML = '';
+    
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        bgElements.appendChild(star);
+    }
+}
+
+// Create animated particles for light mode
+function createParticles() {
+    const bgElements = document.getElementById('bg-elements');
+    bgElements.innerHTML = '';
+    
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        bgElements.appendChild(particle);
+    }
+}
+
+// Load saved theme preference on page load
+window.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        createStars();
+    } else {
+        createParticles();
+    }
+    
+    // Add pulse animation to buttons
+    const buttons = document.querySelectorAll('button:not(.theme-toggle)');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.classList.add('pulse');
+        });
+        button.addEventListener('mouseleave', function() {
+            this.classList.remove('pulse');
+        });
+    });
+    
+    // Interactive cursor trail effect
+    let mouseX = 0, mouseY = 0;
+    
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Create trailing dot
+        const dot = document.createElement('div');
+        dot.style.position = 'fixed';
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+        dot.style.width = '5px';
+        dot.style.height = '5px';
+        dot.style.borderRadius = '50%';
+        dot.style.background = document.body.classList.contains('dark-mode') ? '#e94560' : '#667eea';
+        dot.style.pointerEvents = 'none';
+        dot.style.opacity = '0.6';
+        dot.style.transition = 'opacity 0.5s ease';
+        dot.style.zIndex = '999';
+        
+        document.body.appendChild(dot);
+        
+        setTimeout(() => {
+            dot.style.opacity = '0';
+            setTimeout(() => dot.remove(), 500);
+        }, 100);
+    });
+});
+</script>
+<br></br>
+<h2>Learn More</h2>
+<a href="https://www.w3schools.com/js/js_json.asp" target="_blank">Learn more about JSON</a>
+<br></br>
+<a href="https://www.w3schools.com/jquery/jquery_intro.asp" target="_blank">Learn more about jQuery</a>
+<br></br>
+<a href="https://www.w3schools.com/js/js_ajax_intro.asp" target="_blank">Learn more about AJAX</a>
+</p>
+</body>
+</html>

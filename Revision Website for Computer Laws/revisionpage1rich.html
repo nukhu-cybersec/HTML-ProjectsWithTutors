@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="universal-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Company Intranet - Snoop and Pry Ltd.</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-muted: #777777;
+            --accent-primary: #0066cc;
+            --accent-hover: #0052a3;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #3b82f6;
+        }
+
+        .dark-mode {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f26;
+            --bg-card: #1e2531;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b8b8b8;
+            --text-muted: #8899a6;
+            --accent-primary: #3b9dff;
+            --accent-hover: #5ab0ff;
+            --border-color: #2d3748;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Roboto Slab', Georgia, serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .page-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0;
+            margin: -20px -20px 30px -20px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-brand h1 {
+            font-size: 22px;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .navbar-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .navbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+            transform: translateY(-1px);
+        }
+
+        .theme-icon {
+            font-size: 18px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(59, 157, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #0052a3 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .welcome-banner h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .welcome-banner p {
+            font-size: 16px;
+            opacity: 0.95;
+            max-width: 800px;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .category-tab {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .category-tab:hover {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .category-tab.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        /* Topic Grid */
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .topic-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .topic-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .topic-card h3 {
+            color: var(--text-primary);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .topic-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .topic-content {
+            display: none;
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-primary);
+            padding: 24px;
+            margin-top: 20px;
+            border-radius: 8px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        .topic-content strong {
+            color: var(--accent-primary);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .topic-content ul {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .topic-content li {
+            margin: 8px 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--info-color);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success-color);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .danger-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger-color);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        /* Expandable Sections */
+        .expandable-section {
+            margin: 16px 0;
+        }
+
+        .expand-btn {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .expand-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .hidden-content.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--success-color));
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        table th {
+            background: var(--accent-primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-banner {
+                padding: 24px;
+            }
+
+            .welcome-banner h2 {
+                font-size: 22px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            table th, table td {
+                padding: 8px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .navbar, .theme-toggle, .back-to-top, .category-tabs, .expand-btn {
+                display: none;
+            }
+
+            .topic-content, .hidden-content {
+                display: block !important;
+            }
+        }
+	function toggleContent(topicId) {
+            const content = document.getElementById(topicId);
+            const clickedCard = content.closest('.topic-card');
+            const allContents = document.querySelectorAll('.topic-content');
+            const allCards = document.querySelectorAll('.topic-card');
+            const infoGrid = document.querySelector('.info-grid');
+
+            const isCurrentlyActive = content.classList.contains('active');
+
+            // Close all other topics
+            allContents.forEach(item => {
+                if (item.id !== topicId) {
+                    item.classList.remove('active');
+                    item.closest('.topic-card').classList.remove('active-card');
+                }
+            });
+
+            // Toggle the clicked topic
+            if (isCurrentlyActive) {
+                content.classList.remove('active');
+                clickedCard.classList.remove('active-card');
+                infoGrid.classList.remove('has-active');
+            } else {
+                content.classList.add('active');
+                clickedCard.classList.add('active-card');
+                infoGrid.classList.add('has-active');
+
+                // Smooth scroll to the content
+                setTimeout(() => {
+                    content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav 
+        /* IMPROVED CONTENT LAYOUT - Better spreading and readability */
+
+        /* Enhanced topic content with better spreading */
+        .topic-content.active {
+            display: block;
+            max-width: 1100px;
+            width: 95%;
+            margin: 20px auto;
+            padding: 35px 45px;
+            line-height: 1.8;
+        }
+
+        /* Improved spacing for content elements */
+        .topic-content.active h2,
+        .topic-content.active h3,
+        .topic-content.active h4 {
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .topic-content.active p {
+            margin: 16px 0;
+        }
+
+        .topic-content.active ul,
+        .topic-content.active ol {
+            margin: 16px 0;
+            padding-left: 25px;
+        }
+
+        .topic-content.active li {
+            margin-bottom: 10px;
+        }
+
+        /* Tables spread across full width */
+        .topic-content.active table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        .topic-content.active table th,
+        .topic-content.active table td {
+            padding: 12px 15px;
+        }
+
+        /* Better spacing for info boxes */
+        .topic-content.active .info-box,
+        .topic-content.active .warning-box,
+        .topic-content.active .danger-box,
+        .topic-content.active .success-box {
+            margin: 25px 0;
+            padding: 20px;
+        }
+
+        /* Expandable sections with better spacing */
+        .topic-content.active .expandable-section {
+            margin: 20px 0;
+        }
+
+
+
+        /* Responsive adjustments */
+        @media (min-width: 1400px) {
+            .topic-content.active {
+                max-width: 1200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topic-content.active {
+                width: 100%;
+                padding: 25px 20px;
+            }
+        }
+
+class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <div>
+                    <h1>🔍 Snoop and Pry Private Investigations Ltd.</h1>
+                    <div class="navbar-subtitle">Employee Resources & Company Policies</div>
+                </div>
+            </div>
+            <div class="navbar-controls">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search policies..." title="Press / to focus">
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                    <span class="theme-icon" id="themeIcon">🌙</span>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <h2>Welcome to the Company Intranet</h2>
+            <p>Access all company policies, procedures, and resources in one place. Click on any topic below to view detailed information. Use the search bar above to quickly find specific policies, or use keyboard shortcut "/" to search instantly.</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="category-tab active" onclick="filterCategory('all')">📋 All Policies</button>
+            <button class="category-tab" onclick="filterCategory('security')">🔒 Security & Privacy</button>
+            <button class="category-tab" onclick="filterCategory('conduct')">⚖️ Professional Conduct</button>
+            <button class="category-tab" onclick="filterCategory('operations')">⚙️ Operations</button>
+            <button class="category-tab" onclick="filterCategory('hr')">👥 HR & Employment</button>
+        </div>
+
+        <!-- Topic Grid -->
+        <div class="topic-grid" id="topicGrid">
+            <!-- Topic 1: Data Protection (MASSIVELY EXPANDED) -->
+            <div class="topic-card" data-category="security" onclick="toggleContent('topic1')">
+                <div class="topic-header">
+                    <span class="topic-icon">🔒</span>
+                    <div>
+                        <h3>Data Protection & Client Confidentiality</h3>
+                        <p>Comprehensive guidelines on handling sensitive client information and GDPR compliance</p>
+                    </div>
+                </div>
+                <div id="topic1" class="topic-content">
+                    <strong>📖 Policy Overview</strong>
+                    As a private investigations firm, we handle highly sensitive personal data daily. All employees must comply with UK GDPR (Data Protection Act 2018) and maintain the highest standards of confidentiality. Non-compliance can result in fines up to £17.5 million or 4% of annual turnover.<br><br>
+
+                    <div class="info-box">
+                        <strong>💡 Key Fact:</strong> The UK ICO reported over 2,500 data breach notifications in 2024. Proper training and procedures are essential to avoid becoming a statistic.
+                    </div>
+
+                    <strong>🎯 What is Personal Data?</strong>
+                    <ul>
+                        <li><strong>Basic identifiers:</strong> Names, addresses, phone numbers, email addresses</li>
+                        <li><strong>Sensitive data:</strong> Financial information, health records, criminal records</li>
+                        <li><strong>Digital identifiers:</strong> IP addresses, device IDs, location data</li>
+                        <li><strong>Biometric data:</strong> Photos, fingerprints, voice recordings</li>
+                        <li><strong>Online identifiers:</strong> Social media profiles, usernames, cookies</li>
+                    </ul>
+
+                    <strong>🔐 Seven Principles of Data Protection</strong>
+                    <table>
+                        <tr>
+                            <th>Principle</th>
+                            <th>What It Means</th>
+                        </tr>
+                        <tr>
+                            <td><strong>1. Lawfulness</strong></td>
+                            <td>Must have legal basis (consent, contract, legal obligation, vital interests, public task, or legitimate interests)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Purpose Limitation</strong></td>
+                            <td>Only collect data for specific, explicit purposes - no "just in case"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Data Minimisation</strong></td>
+                            <td>Collect only what's necessary for the investigation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Accuracy</strong></td>
+                            <td>Keep records up-to-date and correct errors immediately</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Storage Limitation</strong></td>
+                            <td>Delete data once it's no longer needed (standard: 7 years)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Security</strong></td>
+                            <td>Protect against unauthorized access, loss, or damage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7. Accountability</strong></td>
+                            <td>Demonstrate compliance through documentation</td>
+                        </tr>
+                    </table>
+
+                    <strong>✅ Mandatory Security Requirements</strong>
+                    <ul>
+                        <li>All digital files encrypted with AES-256 minimum standard</li>
+                        <li>Physical files locked in secure cabinets with restricted key access</li>
+                        <li>USB drives and portable storage must be encrypted and registered</li>
+                        <li>Case files accessed only on need-to-know basis - documented each time</li>
+                        <li>Remote access only via company VPN with 2FA authentication</li>
+                        <li>Shred all physical documents using cross-cut shredders (minimum DIN P-4)</li>
+                        <li>Clean desk policy enforced - no sensitive materials visible when unattended</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Common Data Breach Scenarios:</strong><br>
+                        • Sending case files to wrong email recipient<br>
+                        • Discussing cases in public places<br>
+                        • Leaving files in car or public transport<br>
+                        • Using unsecured public WiFi for work<br>
+                        • Sharing login credentials with colleagues<br>
+                        • Failing to lock laptop when away from desk
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('breach-procedure')">📋 Data Breach Response Procedure</button>
+                        <div id="breach-procedure" class="hidden-content">
+                            <strong>Immediate Actions (Within 1 Hour):</strong>
+                            <ol>
+                                <li>Stop the breach if possible (e.g., recall email, secure physical documents)</li>
+                                <li>Notify your line manager and Data Protection Officer immediately</li>
+                                <li>Document exactly what happened, when, and what data was involved</li>
+                                <li>Do not attempt to cover up or delay reporting</li>
+                            </ol>
+
+                            <strong>Within 24 Hours:</strong>
+                            <ul>
+                                <li>DPO assesses severity and risk to data subjects</li>
+                                <li>Contain the breach and prevent further data loss</li>
+                                <li>Begin investigation into root cause</li>
+                            </ul>
+
+                            <strong>Within 72 Hours:</strong>
+                            <ul>
+                                <li>Report to ICO if risk to individuals' rights and freedoms</li>
+                                <li>Notify affected individuals if high risk of harm</li>
+                                <li>Document all actions taken</li>
+                            </ul>
+
+                            <div class="danger-box">
+                                <strong>Disciplinary Consequences:</strong><br>
+                                Minor breach (first offense): Written warning + retraining<br>
+                                Serious breach: Final written warning + suspension<br>
+                                Gross negligence: Immediate dismissal + potential legal action<br>
+                                Intentional breach: Dismissal + criminal prosecution
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('client-rights')">👤 Data Subject Rights</button>
+                        <div id="client-rights" class="hidden-content">
+                            Clients and investigation subjects have the following rights:
+                            <ol>
+                                <li><strong>Right to be informed</strong> - Privacy notices explaining data use</li>
+                                <li><strong>Right of access</strong> - Subject Access Request (SAR) within 1 month</li>
+                                <li><strong>Right to rectification</strong> - Correct inaccurate personal data</li>
+                                <li><strong>Right to erasure</strong> - "Right to be forgotten" (with exceptions)</li>
+                                <li><strong>Right to restrict processing</strong> - Limit how data is used</li>
+                                <li><strong>Right to data portability</strong> - Receive data in machine-readable format</li>
+                                <li><strong>Right to object</strong> - Stop processing for direct marketing</li>
+                                <li><strong>Rights related to automated decisions</strong> - Challenge AI/algorithmic decisions</li>
+                            </ol>
+
+                            <strong>How to Handle SAR:</strong><br>
+                            Forward immediately to DPO → Do not delete anything → Respond within 30 days → Free of charge (unless excessive/repeat requests)
+                        </div>
+                    </div>
+
+                    <div class="success-box">
+                        <strong>✅ Best Practices Checklist:</strong><br>
+                        ✓ Encrypt all case files before sending<br>
+                        ✓ Use secure file transfer services (no personal email)<br>
+                        ✓ Password-protect sensitive documents<br>
+                        ✓ Anonymize data where possible<br>
+                        ✓ Regular data audits and deletion of old files<br>
+                        ✓ Annual data protection training mandatory
+                    </div>
+
+                    <strong>📞 Who to Contact</strong>
+                    <ul>
+                        <li><strong>Data Protection Officer:</strong> dpo@snoopandpry.co.uk | Ext: 2301</li>
+                        <li><strong>IT Security Team:</strong> itsecurity@snoopandpry.co.uk | Ext: 2400</li>
+                        <li><strong>24/7 Emergency Breach Hotline:</strong> 0800-BREACH-911</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 2: Code of Conduct (EXPANDED) -->
+            <div class="topic-card" data-category="conduct" onclick="toggleContent('topic2')">
+                <div class="topic-header">
+                    <span class="topic-icon">⚖️</span>
+                    <div>
+                        <h3>Professional Code of Conduct</h3>
+                        <p>Standards of behavior and ethical guidelines for investigators</p>
+                    </div>
+                </div>
+                <div id="topic2" class="topic-content">
+                    <strong>📖 Professional Standards</strong>
+                    All investigators must maintain the highest ethical standards and comply with legal requirements. Our reputation depends on the integrity of every team member.<br><br>
+
+                    <strong>🎯 Core Values</strong>
+                    <ul>
+                        <li><strong>Integrity:</strong> Honesty in all dealings with clients, subjects, and colleagues</li>
+                        <li><strong>Confidentiality:</strong> Never disclose case information without authorization</li>
+                        <li><strong>Objectivity:</strong> Remain impartial and report facts without bias</li>
+                        <li><strong>Professionalism:</strong> Maintain courteous, respectful conduct at all times</li>
+                        <li><strong>Competence:</strong> Only accept cases within your skill and knowledge level</li>
+                    </ul>
+
+                    <strong>✅ Expected Professional Behavior</strong>
+                    <ul>
+                        <li>Conduct all investigations within UK legal boundaries</li>
+                        <li>Maintain objectivity - report findings truthfully even if unfavorable to client</li>
+                        <li>Dress appropriately: Business attire for client meetings, discreet clothing for surveillance</li>
+                        <li>Never misrepresent identity unless legally authorized (undercover operations)</li>
+                        <li>Respect privacy rights - no trespassing or illegal entry</li>
+                        <li>Maintain professional relationships with law enforcement and court officials</li>
+                        <li>Complete thorough, accurate, and timely reports</li>
+                        <li>Keep client informed of progress and any issues</li>
+                    </ul>
+
+                    <div class="danger-box">
+                        <strong>❌ Strictly Prohibited Activities</strong><br>
+                        🚫 Illegal surveillance (hacking, wiretapping, GPS tracking without consent)<br>
+                        🚫 Trespassing on private property<br>
+                        🚫 Impersonating law enforcement or government officials<br>
+                        🚫 Bribing witnesses or officials<br>
+                        🚫 Falsifying evidence or reports<br>
+                        🚫 Accepting gifts/payments from investigation subjects<br>
+                        🚫 Using intimidation or harassment tactics<br>
+                        🚫 Sharing case information on social media
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('legal-boundaries')">⚖️ Legal Boundaries for Investigations</button>
+                        <div id="legal-boundaries" class="hidden-content">
+                            <strong>What You CAN Do:</strong>
+                            <ul>
+                                <li>Observe and photograph people in public spaces</li>
+                                <li>Review publicly available records and databases</li>
+                                <li>Interview witnesses with their consent</li>
+                                <li>Use open-source intelligence (OSINT) from social media</li>
+                                <li>Conduct background checks with proper authorization</li>
+                                <li>Follow subjects in public (maintaining reasonable distance)</li>
+                            </ul>
+
+                            <strong>What You CANNOT Do:</strong>
+                            <ul>
+                                <li>Enter private property without permission</li>
+                                <li>Install tracking devices without consent</li>
+                                <li>Intercept communications (calls, emails, texts)</li>
+                                <li>Photograph through windows into private homes</li>
+                                <li>Hack into digital accounts or devices</li>
+                                <li>Use drones over private property without permission</li>
+                                <li>Pretend to be someone else to obtain information (pretext calling)</li>
+                            </ul>
+
+                            <div class="warning-box">
+                                <strong>⚠️ Gray Areas - Seek Approval:</strong><br>
+                                • Using publicly available but sensitive information<br>
+                                • Surveillance near schools or places of worship<br>
+                                • Recording conversations (one-party consent in UK)<br>
+                                • Working with foreign jurisdictions<br>
+                                • Cases involving minors or vulnerable adults
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('conflict-scenarios')">🤝 Conflict of Interest Scenarios</button>
+                        <div id="conflict-scenarios" class="hidden-content">
+                            <strong>Scenario 1: Personal Connection</strong><br>
+                            A client asks you to investigate someone you know socially.<br>
+                            <strong>Action:</strong> Immediately disclose to supervisor. Case will be reassigned.<br><br>
+
+                            <strong>Scenario 2: Competing Clients</strong><br>
+                            Two clients hire you for cases that may be connected or conflicting.<br>
+                            <strong>Action:</strong> Disclose to both clients. Obtain written consent or decline one case.<br><br>
+
+                            <strong>Scenario 3: Financial Interest</strong><br>
+                            You discover information that could financially benefit you personally.<br>
+                            <strong>Action:</strong> Report immediately. Do not act on information. Recuse yourself.<br><br>
+
+                            <strong>Scenario 4: Romantic Relationship</strong><br>
+                            You develop feelings for someone connected to your investigation.<br>
+                            <strong>Action:</strong> Report immediately. Case will be reassigned. Relationships with subjects/clients prohibited during and after investigation.
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>💡 Professional Development</strong><br>
+                        • Annual ethics training mandatory for all investigators<br>
+                        • Quarterly case review meetings to discuss ethical dilemmas<br>
+                        • Access to legal counsel for guidance on complex cases<br>
+                        • Mentorship program for new investigators
+                    </div>
+
+                    <strong>📞 Ethics Hotline</strong><br>
+                    Confidential reporting for ethical concerns: 0800-ETHICS-01 | ethics@snoopandpry.co.uk<br>
+                    Anonymous reporting available via external service
+                </div>
+            </div>
+
+            <!-- Topic 3: Health & Safety (EXPANDED) -->
+            <div class="topic-card" data-category="operations" onclick="toggleContent('topic3')">
+                <div class="topic-header">
+                    <span class="topic-icon">🏥</span>
+                    <div>
+                        <h3>Health & Safety Policy</h3>
+                        <p>Comprehensive workplace safety and field operation protocols</p>
+                    </div>
+                </div>
+                <div id="topic3" class="topic-content">
+                    <strong>📖 Purpose</strong>
+                    To ensure the safety and wellbeing of all employees, particularly those conducting field investigations which can involve unpredictable and potentially hazardous situations.<br><br>
+
+                    <strong>🎯 Risk Assessment Required Before:</strong>
+                    <ul>
+                        <li>Surveillance in high-crime areas</li>
+                        <li>Following potentially violent subjects</li>
+                        <li>Night-time operations</li>
+                        <li>Operations involving confrontation</li>
+                        <li>International investigations</li>
+                        <li>Working alone in remote locations</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Risk Levels:</strong><br>
+                        🟢 <strong>Low:</strong> Standard office work, records research<br>
+                        🟡 <strong>Medium:</strong> Daytime surveillance in public areas<br>
+                        🟠 <strong>High:</strong> Surveillance of potentially dangerous individuals<br>
+                        🔴 <strong>Critical:</strong> Immediate threat to safety - requires police involvement
+                    </div>
+
+                    <strong>✅ Field Safety Protocols</strong>
+                    <ul>
+                        <li><strong>Check-in system:</strong> Text location every 2 hours to operations center</li>
+                        <li><strong>Panic button:</strong> All field staff issued personal safety alarms</li>
+                        <li><strong>Buddy system:</strong> High-risk cases require two-person teams</li>
+                        <li><strong>Emergency contacts:</strong> Memorize and have written backup</li>
+                        <li><strong>First aid kit:</strong> Mandatory in all field vehicles</li>
+                        <li><strong>Vehicle maintenance:</strong> Weekly safety checks documented</li>
+                        <li><strong>Weather monitoring:</strong> Delay operations in severe conditions</li>
+                        <li><strong>Escape routes:</strong> Always identify before starting surveillance</li>
+                    </ul>
+
+                    <div class="danger-box">
+                        <strong>🚨 Emergency Protocols</strong><br>
+                        <strong>If threatened or in danger:</strong><br>
+                        1. Abort the investigation immediately - your safety comes first<br>
+                        2. Move to a safe, public location<br>
+                        3. Call 999 if immediate danger<br>
+                        4. Call operations center: 0800-OPS-CENTER<br>
+                        5. Do NOT engage physically - retreat and report<br><br>
+
+                        <strong>If you witness a crime:</strong><br>
+                        • Call police immediately<br>
+                        • Do not intervene unless life-threatening emergency<br>
+                        • Document what you saw from safe distance<br>
+                        • Preserve evidence but do not contaminate scene<br>
+                        • Provide statement to police as witness
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('vehicle-safety')">🚗 Vehicle Safety Guidelines</button>
+                        <div id="vehicle-safety" class="hidden-content">
+                            <strong>Pre-Operation Vehicle Check:</strong>
+                            <ul>
+                                <li>Fuel level (minimum half tank for surveillance)</li>
+                                <li>Tire pressure and tread depth</li>
+                                <li>All lights functioning</li>
+                                <li>Windscreen clear and wipers working</li>
+                                <li>Emergency kit present (first aid, flashlight, blanket)</li>
+                                <li>Fire extinguisher accessible</li>
+                            </ul>
+
+                            <strong>While Operating:</strong>
+                            <ul>
+                                <li>No mobile phone use while driving (hands-free only)</li>
+                                <li>Follow all traffic laws - never exceed speed limit</li>
+                                <li>Maintain safe distance from subject (3-4 cars)</li>
+                                <li>If subject drives recklessly, break off pursuit</li>
+                                <li>Regular breaks every 2 hours on long assignments</li>
+                                <li>Report all accidents immediately, regardless of fault</li>
+                            </ul>
+
+                            <strong>Accident Procedure:</strong>
+                            <ol>
+                                <li>Ensure safety of all parties</li>
+                                <li>Call emergency services if injuries</li>
+                                <li>Exchange details with other drivers</li>
+                                <li>Photograph damage and scene</li>
+                                <li>Call company insurance line within 24 hours</li>
+                                <li>Complete accident report form</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('mental-health')">🧠 Mental Health & Wellbeing</button>
+                        <div id="mental-health" class="hidden-content">
+                            Investigation work can be mentally demanding. The company provides:<br><br>
+
+                            <strong>Support Services:</strong>
+                            <ul>
+                                <li>Employee Assistance Program (EAP) - 24/7 confidential counseling</li>
+                                <li>Quarterly wellbeing checks with occupational health</li>
+                                <li>Stress management training</li>
+                                <li>Peer support network</li>
+                                <li>Mental health first aiders in each office</li>
+                            </ul>
+
+                            <strong>Warning Signs of Burnout:</strong>
+                            <ul>
+                                <li>Persistent fatigue and sleep problems</li>
+                                <li>Increased cynicism or detachment</li>
+                                <li>Reduced performance and concentration</li>
+                                <li>Physical symptoms (headaches, tension)</li>
+                                <li>Emotional exhaustion</li>
+                            </ul>
+
+                            <div class="success-box">
+                                <strong>✅ Self-Care Best Practices:</strong><br>
+                                • Take your full lunch breaks<br>
+                                • Use annual leave regularly<br>
+                                • Maintain work-life boundaries<br>
+                                • Debrief after difficult cases<br>
+                                • Talk to supervisor if workload overwhelming
+                            </div>
+
+                            <strong>📞 EAP Helpline:</strong> 0800-WELLBEING | Available 24/7, completely confidential
+                        </div>
+                    </div>
+
+                    <strong>📋 Office Safety</strong>
+                    <ul>
+                        <li>Ergonomic workstation assessments on request</li>
+                        <li>Regular screen breaks (5 min every hour)</li>
+                        <li>Fire drills quarterly - know your evacuation route</li>
+                        <li>First aiders on every floor</li>
+                        <li>Report hazards immediately via safety@snoopandpry.co.uk</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Continue with remaining topics... (Topics 4-9 similarly expanded) -->
+            <!-- For brevity, I'll include a few more fully expanded, then summarize the pattern -->
+
+            <!-- Topic 4: IT & Communications (EXPANDED) -->
+            <div class="topic-card" data-category="security" onclick="toggleContent('topic4')">
+                <div class="topic-header">
+                    <span class="topic-icon">💻</span>
+                    <div>
+                        <h3>IT & Email Communications Policy</h3>
+                        <p>Acceptable use of company devices and digital security protocols</p>
+                    </div>
+                </div>
+                <div id="topic4" class="topic-content">
+                    <strong>📖 Purpose</strong>
+                    To protect company and client data through secure use of technology systems while enabling efficient operations.<br><br>
+
+                    <strong>🎯 Acceptable Use Policy</strong>
+                    Company devices and systems are primarily for business purposes. Limited personal use permitted during breaks (checking personal email, brief calls) provided it doesn't interfere with work.<br><br>
+
+                    <strong>✅ Mandatory Security Requirements</strong>
+                    <ul>
+                        <li><strong>Passwords:</strong> Minimum 12 characters, mix of upper/lowercase, numbers, symbols</li>
+                        <li><strong>Password changes:</strong> Every 90 days</li>
+                        <li><strong>Two-factor authentication (2FA):</strong> Enabled on all accounts</li>
+                        <li><strong>Screen lock:</strong> Automatic after 5 minutes of inactivity</li>
+                        <li><strong>VPN:</strong> Mandatory for all remote access</li>
+                        <li><strong>Software updates:</strong> Install immediately when prompted</li>
+                        <li><strong>Antivirus:</strong> Must be active and up-to-date</li>
+                        <li><strong>Encryption:</strong> Full disk encryption on all laptops</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Phishing Warning Signs:</strong><br>
+                        • Unexpected attachments or links<br>
+                        • Urgent requests for passwords or money transfers<br>
+                        • Spelling/grammar errors in "official" emails<br>
+                        • Sender email doesn't match company domain<br>
+                        • Requests to bypass normal procedures<br><br>
+                        <strong>If suspicious:</strong> Do NOT click. Forward to itsecurity@snoopandpry.co.uk
+                    </div>
+
+                    <strong>📧 Email Best Practices</strong>
+                    <ul>
+                        <li>Use company email for all work communications</li>
+                        <li>Check "To" and "CC" fields before sending</li>
+                        <li>Encrypt sensitive attachments (IT provides tools)</li>
+                        <li>Use clear, professional subject lines</li>
+                        <li>Include confidentiality footer (auto-added)</li>
+                        <li>Don't include sensitive info in subject lines</li>
+                        <li>Archive or delete old emails regularly</li>
+                    </ul>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('password-tips')">🔑 Creating Strong Passwords</button>
+                        <div id="password-tips" class="hidden-content">
+                            <strong>Good Password Strategy:</strong><br>
+                            Use a passphrase instead of password. Example:<br><br>
+
+                            ❌ Weak: password123<br>
+                            ❌ Better but still weak: P@ssw0rd!<br>
+                            ✅ Strong: Blue$Elephant#Dances42!<br><br>
+
+                            <strong>Password Manager:</strong><br>
+                            Company provides LastPass Enterprise for secure password storage.<br>
+                            • Never reuse passwords across sites<br>
+                            • Let password manager generate random passwords<br>
+                            • Master password must be memorized (not written down)<br><br>
+
+                            <strong>Never:</strong><br>
+                            • Share passwords with anyone (including IT unless they request password reset)<br>
+                            • Write passwords on sticky notes<br>
+                            • Store in unencrypted files<br>
+                            • Use personal information (birthdays, names, etc.)
+                        </div>
+                    </div>
+
+                    <div class="expandable-section">
+                        <button class="expand-btn" onclick="toggleExtra('remote-work')">🏠 Remote Work Security</button>
+                        <div id="remote-work" class="hidden-content">
+                            <strong>Home Office Requirements:</strong>
+                            <ul>
+                                <li>Secure WiFi with WPA3 encryption</li>
+                                <li>Separate work area with privacy</li>
+                                <li>No family members accessing work devices</li>
+                                <li>Laptop locked when away from desk</li>
+                                <li>Video call backgrounds show no sensitive info</li>
+                            </ul>
+
+                            <strong>Public WiFi - Strictly Prohibited:</strong><br>
+                            Never connect to work systems using:<br>
+                            • Coffee shop WiFi<br>
+                            • Hotel WiFi<br>
+                            • Airport WiFi<br>
+                            • Any public network<br><br>
+
+                            If you must work remotely: Use mobile hotspot or VPN only<br><br>
+
+                            <div class="danger-box">
+                                <strong>Lost/Stolen Device Protocol:</strong><br>
+                                1. Call IT Security immediately: 0800-IT-URGENT<br>
+                                2. We will remotely wipe the device<br>
+                                3. File police report<br>
+                                4. Complete incident report form<br>
+                                5. Change all passwords<br><br>
+                                Device tracking is enabled on all company devices
+                            </div>
+                        </div>
+                    </div>
+
+                    <strong>❌ Prohibited Activities</strong>
+                    <ul>
+                        <li>Downloading unauthorized software or browser extensions</li>
+                        <li>Visiting inappropriate, illegal, or malicious websites</li>
+                        <li>Sharing confidential information via personal email/cloud</li>
+                        <li>Using USB drives without encryption and approval</li>
+                        <li>Connecting personal devices to company network</li>
+                        <li>Using company resources for personal business ventures</li>
+                        <li>Cryptocurrency mining or illegal file sharing</li>
+                    </ul>
+
+                    <strong>📞 IT Support</strong><br>
+                    Help Desk: itsupport@snoopandpry.co.uk | Ext: 2400<br>
+                    Security Incidents: itsecurity@snoopandpry.co.uk | Ext: 2401 (24/7)
+                </div>
+            </div>
+
+            <!-- Topics 5-9 continue with similar expanded format... -->
+            <!-- I'll provide condensed versions to stay within limits -->
+
+            <!-- Topic 5: Social Media -->
+            <div class="topic-card" data-category="security" onclick="toggleContent('topic5')">
+                <div class="topic-header">
+                    <span class="topic-icon">📱</span>
+                    <div>
+                        <h3>Social Media & Public Communications</h3>
+                        <p>Guidelines for online presence and maintaining client discretion</p>
+                    </div>
+                </div>
+                <div id="topic5" class="topic-content">
+                    <strong>📖 Policy Statement</strong>
+                    Employees must not disclose any information about ongoing investigations, clients, or company operations on social media or public forums.<br><br>
+
+                    <strong>🎯 Core Guidelines</strong>
+                    <ul>
+                        <li>Never post about cases, clients, or investigation methods</li>
+                        <li>Don't identify yourself as investigator if compromises covert work</li>
+                        <li>Company-related posts require management pre-approval</li>
+                        <li>Maintain professional image - inappropriate posts reflect on company</li>
+                        <li>Block attempts to solicit case information</li>
+                        <li>Report suspected social engineering attempts</li>
+                        <li>Privacy settings should be maximum on personal accounts</li>
+                        <li>Assume anything posted online is permanent and public</li>
+                    </ul>
+
+                    <div class="danger-box">
+                        <strong>Real Incident Examples:</strong><br>
+                        • Investigator posted photo from surveillance location - subject recognized area<br>
+                        • LinkedIn profile revealed covert investigator identity to subject<br>
+                        • Facebook check-in compromised undercover operation<br>
+                        • Tweet about "frustrating case" led client to question competence
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>Think Before You Post:</strong><br>
+                        ❓ Could this reveal information about a case?<br>
+                        ❓ Could this be traced back to the company?<br>
+                        ❓ Would I be comfortable with this being shown in court?<br>
+                        ❓ Does this reflect professional standards?<br><br>
+                        If any answer is "no" - don't post it!
+                    </div>
+
+                    <strong>✅ Acceptable Social Media Use</strong>
+                    <ul>
+                        <li>Sharing company press releases (with permission)</li>
+                        <li>General industry news and trends</li>
+                        <li>Professional development achievements</li>
+                        <li>Company social events (pre-approved photos)</li>
+                    </ul>
+
+                    <strong>📞 Social Media Incident Reporting</strong><br>
+                    If you see company/case info posted online: communications@snoopandpry.co.uk
+                </div>
+            </div>
+
+            <!-- Topic 6: Conflict of Interest -->
+            <div class="topic-card" data-category="conduct" onclick="toggleContent('topic6')">
+                <div class="topic-header">
+                    <span class="topic-icon">🤝</span>
+                    <div>
+                        <h3>Conflict of Interest Policy</h3>
+                        <p>Avoiding situations that compromise professional judgment</p>
+                    </div>
+                </div>
+                <div id="topic6" class="topic-content">
+                    <strong>📖 Definition</strong>
+                    A conflict of interest occurs when personal interests could interfere with professional duties or create appearance of impropriety.<br><br>
+
+                    <strong>🎯 Common Conflict Scenarios</strong>
+                    <table>
+                        <tr>
+                            <th>Situation</th>
+                            <th>Action Required</th>
+                        </tr>
+                        <tr>
+                            <td>Investigating someone you know</td>
+                            <td>Immediate disclosure → Reassignment</td>
+                        </tr>
+                        <tr>
+                            <td>Financial interest in outcome</td>
+                            <td>Disclose → Likely recusal</td>
+                        </tr>
+                        <tr>
+                            <td>Gifts from subjects/clients</td>
+                            <td>Refuse → Report if valuable</td>
+                        </tr>
+                        <tr>
+                            <td>Secondary employment</td>
+                            <td>Requires written approval</td>
+                        </tr>
+                        <tr>
+                            <td>Family member connection</td>
+                            <td>Immediate disclosure → Reassignment</td>
+                        </tr>
+                    </table>
+
+                    <strong>✅ Disclosure Requirements</strong>
+                    Report potential conflicts within 24 hours to your supervisor and compliance officer. Include:<br>
+                    • Nature of the conflict<br>
+                    • Parties involved<br>
+                    • Potential impact on investigation<br>
+                    • Proposed resolution<br><br>
+
+                    <div class="info-box">
+                        <strong>When in Doubt, Disclose</strong><br>
+                        It's better to report a potential conflict that turns out to be acceptable than to hide one that later causes problems. All disclosures are handled confidentially.
+                    </div>
+
+                    <strong>❌ Consequences of Non-Disclosure</strong>
+                    • Disciplinary action up to termination<br>
+                    • Legal liability for company and individual<br>
+                    • Loss of professional licenses<br>
+                    • Damage to company reputation<br>
+                    • Potential criminal charges if fraud involved
+                </div>
+            </div>
+
+            <!-- Topic 7: Leave & Time Off -->
+            <div class="topic-card" data-category="hr" onclick="toggleContent('topic7')">
+                <div class="topic-header">
+                    <span class="topic-icon">🏖️</span>
+                    <div>
+                        <h3>Leave & Time Off Policy</h3>
+                        <p>Annual leave, sick leave, and absence procedures</p>
+                    </div>
+                </div>
+                <div id="topic7" class="topic-content">
+                    <strong>📖 Leave Entitlements</strong>
+                    All employees receive statutory minimum plus company enhancements.<br><br>
+
+                    <strong>🏖️ Annual Leave</strong>
+                    <ul>
+                        <li><strong>Entitlement:</strong> 28 days (including 8 bank holidays)</li>
+                        <li><strong>Accrual:</strong> Pro-rated for part-year employment</li>
+                        <li><strong>Request process:</strong> Submit via HR portal 2 weeks advance</li>
+                        <li><strong>Approval:</strong> Based on operational needs and team coverage</li>
+                        <li><strong>Carry over:</strong> Max 5 days to next year (use-it-or-lose-it)</li>
+                        <li><strong>Blackout periods:</strong> Limited leave Dec 1-15 (peak season)</li>
+                    </ul>
+
+                    <strong>🤒 Sick Leave</strong>
+                    <ul>
+                        <li><strong>Notification:</strong> Call supervisor before shift start</li>
+                        <li><strong>Self-certification:</strong> Up to 7 calendar days</li>
+                        <li><strong>Fit note required:</strong> Absences over 7 days</li>
+                        <li><strong>Pay:</strong> Statutory Sick Pay (SSP) from day 4</li>
+                        <li><strong>Return to work:</strong> Meeting with supervisor required</li>
+                        <li><strong>Patterns:</strong> Frequent absences may trigger review</li>
+                    </ul>
+
+                    <strong>💐 Other Leave Types</strong>
+                    <table>
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>Entitlement</th>
+                            <th>Pay Status</th>
+                        </tr>
+                        <tr>
+                            <td>Bereavement</td>
+                            <td>Up to 5 days</td>
+                            <td>Paid</td>
+                        </tr>
+                        <tr>
+                            <td>Maternity</td>
+                            <td>52 weeks</td>
+                            <td>39 weeks paid (SMP)</td>
+                        </tr>
+                        <tr>
+                            <td>Paternity</td>
+                            <td>2 weeks</td>
+                            <td>Paid (SPP)</td>
+                        </tr>
+                        <tr>
+                            <td>Parental</td>
+                            <td>18 weeks (unpaid)</td>
+                            <td>Unpaid</td>
+                        </tr>
+                        <tr>
+                            <td>Jury Service</td>
+                            <td>As required</td>
+                            <td>Unpaid (claim from court)</td>
+                        </tr>
+                        <tr>
+                            <td>Emergency</td>
+                            <td>Reasonable time</td>
+                            <td>Unpaid</td>
+                        </tr>
+                    </table>
+
+                    <strong>📞 Absence Reporting</strong><br>
+                    Sick line: 0800-ABSENCE | absence@snoopandpry.co.uk<br>
+                    HR team: hr@snoopandpry.co.uk | Ext: 2100
+                </div>
+            </div>
+
+            <!-- Topic 8: Disciplinary Procedures -->
+            <div class="topic-card" data-category="hr" onclick="toggleContent('topic8')">
+                <div class="topic-header">
+                    <span class="topic-icon">⚠️</span>
+                    <div>
+                        <h3>Disciplinary & Grievance Procedures</h3>
+                        <p>Fair process for addressing misconduct and employee concerns</p>
+                    </div>
+                </div>
+                <div id="topic8" class="topic-content">
+                    <strong>📖 Progressive Discipline</strong>
+                    Most issues addressed through escalating warnings before termination:<br>
+                    1. Verbal warning (recorded, stays on file 6 months)<br>
+                    2. Written warning (stays on file 12 months)<br>
+                    3. Final written warning (stays on file 18 months)<br>
+                    4. Dismissal<br><br>
+
+                    <div class="danger-box">
+                        <strong>⚠️ Gross Misconduct (Immediate Dismissal)</strong><br>
+                        • Theft, fraud, or dishonesty<br>
+                        • Breach of client confidentiality<br>
+                        • Illegal activities during investigations<br>
+                        • Violence, threats, or harassment<br>
+                        • Under influence of drugs/alcohol on duty<br>
+                        • Serious negligence causing harm<br>
+                        • Deliberate damage to property<br>
+                        • Falsifying timesheets or expenses<br><br>
+                        <strong>Process:</strong> Immediate suspension → Investigation → Disciplinary hearing → Decision
+                    </div>
+
+                    <strong>✅ Your Rights in Disciplinary Process</strong>
+                    <ul>
+                        <li>Written notice of allegations</li>
+                        <li>Reasonable time to prepare defense</li>
+                        <li>Right to be accompanied (colleague or union rep)</li>
+                        <li>Present your case and call witnesses</li>
+                        <li>Written outcome with reasons</li>
+                        <li>Right to appeal</li>
+                    </ul>
+
+                    <strong>📝 Raising a Grievance</strong>
+                    If you have concerns about:<br>
+                    • Treatment by colleagues or managers<br>
+                    • Working conditions<br>
+                    • Bullying or harassment<br>
+                    • Discrimination<br>
+                    • Health and safety<br><br>
+
+                    <strong>Process:</strong><br>
+                    1. Informal discussion with manager (if appropriate)<br>
+                    2. Formal written grievance to HR<br>
+                    3. Investigation by impartial party<br>
+                    4. Grievance hearing<br>
+                    5. Written outcome<br>
+                    6. Right to appeal<br><br>
+
+                    <div class="info-box">
+                        <strong>Confidentiality:</strong> All disciplinary and grievance matters handled with strict confidentiality. Only those directly involved will know details.
+                    </div>
+
+                    <strong>📞 HR Contacts</strong><br>
+                    HR Manager: hrmanager@snoopandpry.co.uk | Ext: 2101<br>
+                    Employee Relations: employeerelations@snoopandpry.co.uk
+                </div>
+            </div>
+
+            <!-- Topic 9: Equipment & Vehicles -->
+            <div class="topic-card" data-category="operations" onclick="toggleContent('topic9')">
+                <div class="topic-header">
+                    <span class="topic-icon">🚗</span>
+                    <div>
+                        <h3>Company Equipment & Vehicle Use</h3>
+                        <p>Proper use, maintenance, and accountability for company assets</p>
+                    </div>
+                </div>
+                <div id="topic9" class="topic-content">
+                    <strong>📖 Equipment Responsibility</strong>
+                    Employees are personally responsible for company-issued surveillance equipment, cameras, vehicles, and devices.<br><br>
+
+                    <strong>🚗 Company Vehicle Policy</strong>
+                    <ul>
+                        <li><strong>Eligibility:</strong> Valid UK driving license + annual check</li>
+                        <li><strong>Insurance:</strong> Company provides business use cover</li>
+                        <li><strong>Personal use:</strong> Commuting allowed; personal trips require approval</li>
+                        <li><strong>Passengers:</strong> No unauthorized passengers during investigations</li>
+                        <li><strong>Cleanliness:</strong> Keep vehicles clean and professional</li>
+                        <li><strong>Fuel:</strong> Company fuel cards for business use only</li>
+                        <li><strong>Fines:</strong> Employee liable for parking/speeding fines</li>
+                    </ul>
+
+                    <strong>🔧 Maintenance Requirements</strong>
+                    <ul>
+                        <li>Weekly vehicle checks (tires, lights, fluids)</li>
+                        <li>Report defects immediately</li>
+                        <li>Scheduled servicing every 6 months or 10,000 miles</li>
+                        <li>MOT testing as required</li>
+                        <li>Keep vehicle log up to date</li>
+                    </ul>
+
+                    <strong>📸 Equipment Inventory</strong>
+                    <table>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>Sign-out Required</th>
+                            <th>Training Required</th>
+                        </tr>
+                        <tr>
+                            <td>Digital cameras</td>
+                            <td>Yes</td>
+                            <td>Basic</td>
+                        </tr>
+                        <tr>
+                            <td>Video cameras</td>
+                            <td>Yes</td>
+                            <td>Advanced</td>
+                        </tr>
+                        <tr>
+                            <td>GPS trackers</td>
+                            <td>Yes + approval</td>
+                            <td>Legal compliance</td>
+                        </tr>
+                        <tr>
+                            <td>Drones</td>
+                            <td>Yes + license check</td>
+                            <td>CAA certification</td>
+                        </tr>
+                        <tr>
+                            <td>Lock pick tools</td>
+                            <td>Yes + approval</td>
+                            <td>Legal + technical</td>
+                        </tr>
+                        <tr>
+                            <td>Body cameras</td>
+                            <td>Yes</td>
+                            <td>Basic</td>
+                        </tr>
+                    </table>
+
+                    <strong>✅ Equipment Care</strong>
+                    <ul>
+                        <li>Return equipment immediately after use</li>
+                        <li>Report damage or malfunction same day</li>
+                        <li>Clean and charge devices before return</li>
+                        <li>Never leave equipment visible in vehicles</li>
+                        <li>Store in locked cabinets when not in use</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>Lost or Stolen Equipment:</strong><br>
+                        1. Report immediately to supervisor<br>
+                        2. File police report if theft<br>
+                        3. Complete incident form<br>
+                        4. Investigation into circumstances<br>
+                        5. May require reimbursement if negligence found
+                    </div>
+
+                    <strong>📞 Equipment Services</strong><br>
+                    Equipment Manager: equipment@snoopandpry.co.uk | Ext: 2500<br>
+                    Fleet Manager: fleet@snoopandpry.co.uk | Ext: 2501
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">↑</button>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+		
+        // Load saved theme preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').textContent = '☀️';
+                document.getElementById('themeText').textContent = 'Light Mode';
+            }
+        });
+
+        // Toggle Topic Content
+        function toggleContent(topicId) {
+    const content = document.getElementById(topicId);
+    
+    // Simple toggle - just show/hide the clicked content
+    if (content.classList.contains('active')) {
+        content.classList.remove('active');
+    } else {
+        // Close all other contents
+        const allContents = document.querySelectorAll('.topic-content');
+        allContents.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Open the clicked one
+        content.classList.add('active');
+        
+        // Smooth scroll to content after a brief delay
+        setTimeout(() => {
+            content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+    }
+}
+            });
+
+            // Toggle the clicked topic
+            content.classList.toggle('active');
+        }
+
+        // Toggle Expandable Extra Content
+        function toggleExtra(extraId) {
+            const extra = document.getElementById(extraId);
+            extra.classList.toggle('show');
+
+            // Change button text
+            const btn = event.target;
+            if (extra.classList.contains('show')) {
+                btn.textContent = btn.textContent.replace('📋', '✖️');
+            } else {
+                btn.textContent = btn.textContent.replace('✖️', '📋');
+            }
+        }
+
+        // Category Filter
+        function filterCategory(category) {
+            const cards = document.querySelectorAll('.topic-card');
+            const tabs = document.querySelectorAll('.category-tab');
+
+            // Update active tab
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+		// Check if user has accepted AUP in this session
+		window.addEventListener('DOMContentLoaded', function() {
+		const aupAccepted = sessionStorage.getItem('aupAccepted');
+
+		if (!aupAccepted) {
+        // User hasn't accepted AUP, redirect back
+        alert('You must accept the Acceptable Use Policy before accessing company resources.');
+        window.location.href = 'acceptable-use-policy.html';
+    }
+});
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.topic-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const content = card.querySelector('.topic-content').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || content.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Keyboard Accessibility
+        document.addEventListener('keydown', (e) => {
+            // Press '/' to focus search
+            if (e.key === '/' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+
+            // Press 'Escape' to close all expanded topics
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.topic-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelectorAll('.hidden-content').forEach(content => {
+                    content.classList.remove('show');
+                });
+            }
+        });
+    </script>
+
+    <script src="authenticationCode.js"></script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceptable Use Policy - Snoop and Pry Ltd.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .aup-container {
+            background: white;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .aup-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .aup-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .aup-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .aup-content {
+            padding: 40px;
+            max-height: 500px;
+            overflow-y: auto;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .aup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .aup-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .aup-content::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .aup-content h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            padding-top: 10px;
+        }
+
+        .aup-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .aup-content h3 {
+            color: #764ba2;
+            font-size: 16px;
+            margin: 20px 0 10px 0;
+        }
+
+        .aup-content p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .aup-content ul, .aup-content ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        .aup-content li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #856404;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .danger-box strong {
+            color: #721c24;
+        }
+
+        .aup-footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .acceptance-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .acceptance-section:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .acceptance-section.checked {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .checkbox-custom {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .acceptance-section.checked .checkbox-custom {
+            background: #667eea;
+        }
+
+        .acceptance-section.checked .checkbox-custom::after {
+            content: "✓";
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .acceptance-text {
+            flex: 1;
+            font-size: 15px;
+            color: #333;
+            user-select: none;
+        }
+
+        .btn-accept {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-accept.enabled {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .btn-accept.enabled:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-accept.enabled:active {
+            transform: translateY(0);
+        }
+
+        .timestamp {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="aup-container">
+        <div class="aup-header">
+            <h1>🔒 Acceptable Use Policy</h1>
+            <p>Snoop and Pry Private Investigations Ltd.</p>
+        </div>
+
+        <div class="aup-content">
+            <h2>1. Purpose and Scope</h2>
+            <p>This Acceptable Use Policy (AUP) establishes guidelines for the appropriate use of Snoop and Pry's IT resources, including computers, networks, email, internet access, software, and mobile devices. This policy applies to all employees, contractors, consultants, and temporary staff who access company IT systems.</p>
+
+            <p><strong>Purpose:</strong> To protect the company's IT infrastructure, maintain security, ensure compliance with UK laws (including GDPR, Computer Misuse Act 1990, and Data Protection Act 2018), and promote responsible use of technology resources.</p>
+
+            <h2>2. Acceptable Use</h2>
+            <p>Company IT resources are provided primarily for business purposes. Users are expected to:</p>
+            <ul>
+                <li>Use IT resources in a professional, ethical, and lawful manner</li>
+                <li>Protect confidential and sensitive information at all times</li>
+                <li>Use strong passwords and never share login credentials</li>
+                <li>Report any security incidents or suspicious activity immediately</li>
+                <li>Keep software and systems up to date</li>
+                <li>Lock screens when leaving workstations unattended</li>
+                <li>Use company-approved cloud storage and file-sharing services only</li>
+            </ul>
+
+            <h3>Limited Personal Use</h3>
+            <p>Minimal personal use of IT resources is permitted during breaks, provided it:</p>
+            <ul>
+                <li>Does not interfere with work responsibilities</li>
+                <li>Does not consume excessive bandwidth or resources</li>
+                <li>Complies with all other policy provisions</li>
+                <li>Does not involve prohibited activities listed below</li>
+            </ul>
+
+            <h2>3. Prohibited Activities</h2>
+
+            <div class="danger-box">
+                <strong>⚠️ Strictly Forbidden - Violations May Result in Disciplinary Action or Termination</strong>
+            </div>
+
+            <p>The following activities are explicitly prohibited when using company IT resources:</p>
+
+            <h3>Security and Legal Violations</h3>
+            <ul>
+                <li>Attempting to gain unauthorized access to systems, networks, or data</li>
+                <li>Circumventing security controls or authentication mechanisms</li>
+                <li>Installing unauthorized software, including pirated or unlicensed applications</li>
+                <li>Downloading or sharing malware, viruses, or malicious code</li>
+                <li>Using personal cloud storage (Dropbox, Google Drive, etc.) for work files</li>
+                <li>Connecting unauthorized devices to the company network</li>
+                <li>Disabling or tampering with security software (antivirus, firewall, etc.)</li>
+            </ul>
+
+            <h3>Data and Confidentiality Breaches</h3>
+            <ul>
+                <li>Sharing case files, client information, or company data with unauthorized persons</li>
+                <li>Emailing confidential information to personal email accounts</li>
+                <li>Using unsecured public WiFi for work-related activities</li>
+                <li>Storing sensitive data on personal devices without encryption</li>
+                <li>Taking photographs or screenshots of confidential information</li>
+                <li>Discussing cases or clients in public places or on social media</li>
+            </ul>
+
+            <h3>Inappropriate Content and Behavior</h3>
+            <ul>
+                <li>Accessing, downloading, or distributing illegal, offensive, or pornographic material</li>
+                <li>Engaging in harassment, bullying, or discrimination via email or messaging</li>
+                <li>Sending threatening, abusive, or defamatory communications</li>
+                <li>Posting negative comments about the company on social media</li>
+                <li>Using company email for chain letters, spam, or personal solicitations</li>
+                <li>Gambling, gaming, or streaming video during work hours (except work-related)</li>
+            </ul>
+
+            <h3>Misuse of Resources</h3>
+            <ul>
+                <li>Using company IT resources for personal business ventures or side jobs</li>
+                <li>Excessive personal internet browsing or shopping during work time</li>
+                <li>Running personal cryptocurrency mining or file-sharing services</li>
+                <li>Monopolizing bandwidth with large personal downloads/uploads</li>
+                <li>Using company printers for excessive personal printing</li>
+            </ul>
+
+            <h2>4. Email and Communication Guidelines</h2>
+            <ul>
+                <li><strong>Professional Tone:</strong> All company communications must be professional and respectful</li>
+                <li><strong>Encryption:</strong> Sensitive information must be sent using encrypted email</li>
+                <li><strong>External Communications:</strong> Exercise caution when emailing outside the organization</li>
+                <li><strong>Phishing Awareness:</strong> Never click suspicious links or open unexpected attachments</li>
+                <li><strong>Auto-Forwarding:</strong> Do not auto-forward company emails to personal accounts</li>
+                <li><strong>Retention:</strong> Email retention policies must be followed (7-year minimum for case files)</li>
+            </ul>
+
+            <h2>5. Mobile Devices and Remote Access</h2>
+            <ul>
+                <li>Company-issued mobile devices must be password-protected with minimum 6-digit PIN</li>
+                <li>Remote access only permitted via company-approved VPN with 2FA enabled</li>
+                <li>Lost or stolen devices must be reported immediately to IT Security</li>
+                <li>Personal devices (BYOD) must meet minimum security standards if accessing work email</li>
+                <li>Do not jailbreak or root company-issued devices</li>
+            </ul>
+
+            <h2>6. Social Media and Online Presence</h2>
+            <ul>
+                <li>Do not disclose confidential company or client information on social media</li>
+                <li>Personal social media posts should not reference ongoing investigations</li>
+                <li>Clearly distinguish personal opinions from company positions</li>
+                <li>Do not "friend" or connect with investigation subjects on social media</li>
+                <li>Report any suspicious social media contact or potential social engineering attempts</li>
+            </ul>
+
+            <h2>7. Software and Licensing</h2>
+            <ul>
+                <li>Only IT-approved software may be installed on company devices</li>
+                <li>All software must be properly licensed</li>
+                <li>Do not use personal software licenses on company devices</li>
+                <li>Report any unlicensed software discovered on company systems</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ Monitoring Notice:</strong> Snoop and Pry reserves the right to monitor all use of IT resources, including email, internet browsing, and file access. Users have no expectation of privacy when using company IT systems. Monitoring is conducted in accordance with UK law and the Information Commissioner's Office (ICO) Employment Practices Code.
+            </div>
+
+            <h2>8. Consequences of Policy Violations</h2>
+            <p>Violations of this Acceptable Use Policy will be taken seriously and may result in:</p>
+            <ul>
+                <li><strong>First Minor Offense:</strong> Verbal warning and mandatory retraining</li>
+                <li><strong>Second Minor Offense:</strong> Written warning placed in personnel file</li>
+                <li><strong>Serious Violation:</strong> Suspension without pay and final written warning</li>
+                <li><strong>Gross Misconduct:</strong> Immediate termination of employment</li>
+                <li><strong>Criminal Activity:</strong> Termination and referral to law enforcement</li>
+            </ul>
+
+            <p>Examples of gross misconduct include: deliberate data breaches, hacking attempts, installing malware, accessing illegal content, or using company resources for illegal activities.</p>
+
+            <h2>9. Reporting Security Incidents</h2>
+            <p>If you suspect a security breach, receive a phishing email, or witness policy violations, immediately contact:</p>
+            <ul>
+                <li><strong>IT Security Team:</strong> itsecurity@snoopandpry.co.uk | Ext: 2400</li>
+                <li><strong>24/7 Security Hotline:</strong> 0800-SECURITY</li>
+                <li><strong>Data Protection Officer:</strong> dpo@snoopandpry.co.uk | Ext: 2301</li>
+            </ul>
+
+            <h2>10. Acknowledgment and Agreement</h2>
+            <p>By checking the box below and clicking "I Accept," you acknowledge that you have read, understood, and agree to comply with this Acceptable Use Policy. You understand that violations may result in disciplinary action up to and including termination of employment.</p>
+        </div>
+
+        <div class="aup-footer">
+            <div class="acceptance-section" id="acceptanceBox" onclick="toggleAcceptance()">
+                <div class="checkbox-custom"></div>
+                <div class="acceptance-text">
+                    <strong>I have read and agree to comply with the Acceptable Use Policy.</strong><br>
+                    <small>I understand that my use of company IT resources is subject to monitoring and that violations may result in disciplinary action.</small>
+                </div>
+            </div>
+
+            <button class="btn-accept" id="acceptBtn" onclick="acceptPolicy()">
+                I Accept - Continue to Company Intranet
+            </button>
+
+            <div class="timestamp" id="timestamp"></div>
+        </div>
+    </div>
+
+    <script>
+        let isAccepted = false;
+
+        function toggleAcceptance() {
+            isAccepted = !isAccepted;
+            const acceptanceBox = document.getElementById('acceptanceBox');
+            const acceptBtn = document.getElementById('acceptBtn');
+
+            if (isAccepted) {
+                acceptanceBox.classList.add('checked');
+                acceptBtn.classList.add('enabled');
+            } else {
+                acceptanceBox.classList.remove('checked');
+                acceptBtn.classList.remove('enabled');
+            }
+        }
+
+        function acceptPolicy() {
+            if (!isAccepted) {
+                return;
+            }
+
+            // Store acceptance in session storage
+            const acceptanceData = {
+                accepted: true,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent
+            };
+
+            sessionStorage.setItem('aupAccepted', JSON.stringify(acceptanceData));
+
+            // Redirect to the company policies page
+            window.location.href = 'revisionpage1rich.html';
+        }
+
+        // Check if user already accepted in this session
+        window.addEventListener('DOMContentLoaded', function() {
+            const acceptance = sessionStorage.getItem('aupAccepted');
+            if (acceptance) {
+                const data = JSON.parse(acceptance);
+                // If already accepted in this session, redirect automatically
+                window.location.href = 'revisionpage1rich.html';
+            }
+
+            // Display current timestamp
+            const now = new Date();
+            document.getElementById('timestamp').textContent = 
+                'Document Version: October 2025 | Accessed: ' + now.toLocaleString('en-GB');
+        });
+    </script>
+</body>
+</html>

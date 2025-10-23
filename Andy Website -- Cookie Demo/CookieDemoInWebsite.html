@@ -1,0 +1,25 @@
+<html>
+<head>
+ <title>Cookie Handling Demo</title>
+</head>
+<body>
+  <h1>Cookie Handling</h1>
+  <p>Use the buttons below to create and view cookies using JavaScript.</p>
+  <button onclick="setNormalCookie()">Set Normal Cookie</button>
+  <button onclick="showCookies()">Show Cookies</button>
+  <pre id="output"></pre>
+  <script>
+  function setNormalCookie() {
+      // Sets a normal cookie (JavaScript can read it)
+      document.cookie = "user=Andy Stanway; path=/";
+      document.getElementById("output").textContent = 
+        "A cookie has been created";
+    }
+  function showCookies() {
+      // Shows all cookies visible in JavaScript
+      document.getElementById("output").textContent =
+        "The following cookies are visible in JavaScript:\n" + document.cookie;
+    }
+  </script>
+</body>
+</html>

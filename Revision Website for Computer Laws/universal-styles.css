@@ -1,0 +1,14 @@
+/* Page visibility management */
+.page {
+    display: none;
+}
+
+.page.visible {
+    display: block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Keep your existing styles and add the above */
